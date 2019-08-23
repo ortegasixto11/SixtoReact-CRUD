@@ -1,8 +1,8 @@
 import React from 'react'
 import { Route, Switch } from 'react-router-dom'
-import CreateTodo from '../components/Create'
-import ListTodo from '../components/List'
-import EditTodo from '../components/Edit'
+import CreateTodo from '../components/Create.jsx'
+import ListTodo from '../components/List.jsx'
+import EditTodo from '../components/Edit.jsx'
 
 
 function RoutesApp() {
