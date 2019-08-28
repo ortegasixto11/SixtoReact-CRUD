@@ -12,12 +12,11 @@ class ListTodo extends React.Component{
 		}
 
 		this.loadData = this.loadData.bind(this)
+		this.getAll = this.getAll.bind(this)
 	}
 
 	componentDidMount(){
-		Service.getAll(this.state.ref)
-			.then(data => this.loadData(data))
-			.catch(err => console.log(err))
+		this.getAll()
 	}
 
 	loadData(data){
@@ -34,15 +33,28 @@ class ListTodo extends React.Component{
 		this.setState({ todos: _todos })
 	}
 
+	getAll(){
+		Service.getAll(this.state.ref)
+			.then(data => this.loadData(data))
+			.catch(err => console.log(err))
+	}
+
+	handleClickDelete(item_id){
+		if(window.confirm('Eliminar Todo?')){
+			Service.delete(this.state.ref, item_id)
+			this.getAll()
+		}
+	}
+
+	handleClickEdit(item_id){
+		this.props.history.push(`/edit/${item_id}`)
+	}
 
 	render(){
 		return (
 			<div>
 				<h1> List </h1>
-				<Link to="/create">Crear</Link>
-				&nbsp; &nbsp; &nbsp;
-				<Link to="/edit">Editar</Link>
-
+				<Link to="/create">Crear Todo</Link>
 
 				<br /> <br />
 				<table border="1" cellPadding="10">
@@ -60,10 +72,12 @@ class ListTodo extends React.Component{
 								<td>{ item.name }</td>
 								<td>{ item.date }</td>
 								<td>{ item.completed }</td>
-								<td>{ item.name }</td>
+								<td> 
+									<button onClick={this.handleClickEdit.bind(this, item.id)}>Editar</button> &nbsp;
+									<button onClick={this.handleClickDelete.bind(this, item.id)}>Eliminar</button> 
+								</td>
 							</tr>
 						)}
-
 					</tbody>
 				</table>
 

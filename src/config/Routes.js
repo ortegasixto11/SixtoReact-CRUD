@@ -10,7 +10,7 @@ function RoutesApp() {
 		<Switch>
 			<Route exact path="/" component={ListTodo} />
 			<Route exact path="/create" component={CreateTodo} />
-			<Route exact path="/edit" component={EditTodo} />
+			<Route exact path="/edit/:id" component={EditTodo} />
     </Switch>
 	);
     

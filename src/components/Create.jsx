@@ -62,10 +62,7 @@ class CreateTodo extends React.Component{
             <button type="submit"> Guardar </button> &nbsp; &nbsp;
             <button type="button" onClick={this.handleClickBack}> Regresar </button>
           </div>
-
         </form>
-        
-
       </div>
     )
   }
