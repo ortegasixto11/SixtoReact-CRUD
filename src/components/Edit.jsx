@@ -17,6 +17,7 @@ class EditTodo extends React.Component{
 		this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleClickBack = this.handleClickBack.bind(this)
+    this.validateCheckbox = this.validateCheckbox.bind(this)
 		this.getTodo = this.getTodo.bind(this)
 	}
 
@@ -24,7 +25,7 @@ class EditTodo extends React.Component{
 		// Busco el Todo en la BD
 		Service.get(this.state.ref, this.props.match.params.id)
 			.then(data => this.getTodo(data, this.props.match.params.id))
-			.catch(err => console.log(err))
+      .catch(err => console.log(err))
 	}
 
 	getTodo(item, id){
@@ -36,7 +37,8 @@ class EditTodo extends React.Component{
 				completed: item.completed,
 				id: id
 			}
-		})
+    })
+    this.validateCheckbox()
 	}
 
 	handleSubmit(e){
@@ -47,6 +49,8 @@ class EditTodo extends React.Component{
   }
 
 	handleChange(e){
+    console.log(e.target.name)
+    console.log(e.target.value)
     this.setState({
       form : {
         ...this.state.form,
@@ -57,6 +61,10 @@ class EditTodo extends React.Component{
 	
 	handleClickBack(){
     this.props.history.push('/')
+  }
+
+  validateCheckbox(){
+    document.getElementById('completed').checked = this.state.form.completed
   }
 
 	render(){
@@ -80,7 +88,7 @@ class EditTodo extends React.Component{
 
 					<div>
             <label> Completada </label>
-            <input type="checkbox" name="completed" onChange={this.handleChange} defaultChecked={this.state.form.completed} />
+            <input type="checkbox" id="completed" name="completed" onChange={this.handleChange} defaultChecked={this.state.form.completed} />
             <br />
           </div>
 
